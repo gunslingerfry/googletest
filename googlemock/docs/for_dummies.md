@@ -1,4 +1,4 @@
-## Googletest Mocking (gMock) for Dummies {#GMockForDummies}
+## gMock for Dummies {#GMockForDummies}
 
 <!-- GOOGLETEST_CM0013 DO NOT DELETE -->
 
@@ -205,6 +205,8 @@ changes in `Foo` much more easily. While this is more work initially, carefully
 choosing the adaptor interface can make your code easier to write and more
 readable (a net win in the long run), as you can choose `FooAdaptor` to fit your
 specific domain much better than `Foo` does.
+
+<!-- GOOGLETEST_CM0029 DO NOT DELETE -->
 
 ### Using Mocks in Tests
 
@@ -593,8 +595,8 @@ In this example, we test that `Foo()` calls the three expected functions in the
 order as written. If a call is made out-of-order, it will be an error.
 
 (What if you care about the relative order of some of the calls, but not all of
-them? Can you specify an arbitrary partial order? The answer is ... yes! If you
-are impatient, the details can be found [here](#PartialOrder).)
+them? Can you specify an arbitrary partial order? The answer is ... yes! The
+details can be found [here](cook_book.md#OrderedCalls).)
 
 #### All Expectations Are Sticky (Unless Said Otherwise) {#StickyExpectations}
 
