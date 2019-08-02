@@ -81,7 +81,7 @@ void Bar(int* p);         // Neither p nor *p is const.
 void Bar(const int* p);  // p is not const, but *p is.
 ```
 
-<<!-- GOOGLETEST_CM0030 DO NOT DELETE -->
+<!-- GOOGLETEST_CM0030 DO NOT DELETE -->
 
 ### I can't figure out why gMock thinks my expectations are not satisfied. What should I do?
 
@@ -91,9 +91,9 @@ trace, you'll gain insights on why the expectations you set are not met.
 
 If you see the message "The mock function has no default action set, and its
 return type has no default value set.", then try
-[adding a default action](http://go/gmockguide#DefaultValue). Due to a known
-issue, unexpected calls on mocks without default actions don't print out a
-detailed comparison between the actual arguments and the expected arguments.
+[adding a default action](for_dummies.md#DefaultValue). Due to a known issue,
+unexpected calls on mocks without default actions don't print out a detailed
+comparison between the actual arguments and the expected arguments.
 
 ### My program crashed and `ScopedMockLog` spit out tons of messages. Is it a gMock bug?
 
