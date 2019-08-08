@@ -12,12 +12,36 @@ brevity, but you should do it in your own code.
 
 ### Creating Mock Classes
 
+Mock classes are defined as normal classes, using the `MOCK_METHOD` macro to
+generate mocked methods. The macro gets 3 or 4 parameters:
+
+```cpp
+class MyMock {
+ public:
+  MOCK_METHOD(ReturnType, MethodName, (Args...));
+  MOCK_METHOD(ReturnType, MethodName, (Args...), (Specs...));
+};
+```
+
+The first 3 parameters are simply the method declaration, split into 3 parts.
+The 4th parameter accepts a closed list of qualifiers, which affect the
+generated method:
+
+*   **`const`** - Makes the mocked method a `const` method. Required if
+    overriding a `const` method.
+*   **`override`** - Marks the method with `override`. Recommended if overriding
+    a `virtual` method.
+*   **`noexcept`** - Marks the method with `noexcept`. Required if overriding a
+    `noexcept` method.
+*   **`Calltype(...)`** - Sets the call type for the method (e.g. to
+    `STDMETHODCALLTYPE`), useful in Windows.
+
 #### Dealing with unprotected commas
 
 Unprotected commas, i.e. commas which are not surrounded by parentheses, prevent
 `MOCK_METHOD` from parsing its arguments correctly:
 
-```cpp
+```cpp {.bad}
 class MockFoo {
  public:
   MOCK_METHOD(std::pair<bool, int>, GetPair, ());  // Won't compile!
@@ -27,7 +51,7 @@ class MockFoo {
 
 Solution 1 - wrap with parentheses:
 
-```cpp
+```cpp {.good}
 class MockFoo {
  public:
   MOCK_METHOD((std::pair<bool, int>), GetPair, ());
@@ -40,7 +64,7 @@ invalid C++. `MOCK_METHOD` removes the parentheses.
 
 Solution 2 - define an alias:
 
-```cpp
+```cpp {.good}
 class MockFoo {
  public:
   using BoolAndInt = std::pair<bool, int>;
@@ -3694,9 +3718,9 @@ A cardinality is used in `Times()` to tell gMock how many times you expect a
 call to occur. It doesn't have to be exact. For example, you can say
 `AtLeast(5)` or `Between(2, 4)`.
 
-If the [built-in set](#CardinalityList) of cardinalities doesn't suit you, you
-are free to define your own by implementing the following interface (in
-namespace `testing`):
+If the [built-in set](cheat_sheet.md#CardinalityList) of cardinalities doesn't
+suit you, you are free to define your own by implementing the following
+interface (in namespace `testing`):
 
 ```cpp
 class CardinalityInterface {
