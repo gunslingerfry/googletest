@@ -4,3 +4,4 @@ This page lists all documentation markdown files for Google Mock **(the current 
   * [Legacy gMock FAQ](gmock_faq.md)
   * [gMock Cookbook](cook_book.md)
   * [gMock Cheat Sheet](cheat_sheet.md)
+  * [gMock Pump Manual](pump_manual.md)

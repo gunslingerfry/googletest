@@ -4,9 +4,9 @@ current git version)**
   * [Primer](primer.md) -- start here if you are new to Google Test
   * [FAQ](faq.md) -- frequently asked questions, check here before asking a question on the mailing list.
   * [Advanced](advanced.md) -- advanced usage of google test
-  * [Xcode](XcodeGuide.md) -- guide for using google test with xcode
-  * [Pump Manual](PumpManual.md) -- Simple meta-programming tool for C++
+  * [pkg-config](pkgconfig.md) -- Using GoogleTest from various build systems
+  * [Samples](samples.md) -- Googletest Samples {#samples}
 
-To contribute code to Google Mock, read:
+To contribute code to Google Test, read:
 
   * [CONTRIBUTING](../../CONTRIBUTING.md) -- read this _before_ writing your first patch.
