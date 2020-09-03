@@ -2141,8 +2141,13 @@ bool String::EndsWithCaseInsensitive(
 
 // Formats an int value as "%02d".
 std::string String::FormatIntWidth2(int value) {
+  return FormatIntWidthN(value, 2);
+}
+
+// Formats an int value to given width with leading zeros.
+std::string String::FormatIntWidthN(int value, int width) {
   std::stringstream ss;
-  ss << std::setfill('0') << std::setw(2) << value;
+  ss << std::setfill('0') << std::setw(width) << value;
   return ss.str();
 }
 
@@ -3277,7 +3282,7 @@ bool ShouldUseColor(bool stdout_is_tty) {
 // This routine must actually emit the characters rather than return a string
 // that would be colored when printed, as can be done on Linux.
 
-void ColoredPrintf(GTestColor color, const char* fmt, ...) {
+static void ColoredPrintf(GTestColor color, const char* fmt, ...) {
   va_list args;
   va_start(args, fmt);
 
@@ -4101,13 +4106,14 @@ std::string FormatEpochTimeInMillisAsIso8601(TimeInMillis ms) {
   struct tm time_struct;
   if (!PortableLocaltime(static_cast<time_t>(ms / 1000), &time_struct))
     return "";
-  // YYYY-MM-DDThh:mm:ss
+  // YYYY-MM-DDThh:mm:ss.sss
   return StreamableToString(time_struct.tm_year + 1900) + "-" +
       String::FormatIntWidth2(time_struct.tm_mon + 1) + "-" +
       String::FormatIntWidth2(time_struct.tm_mday) + "T" +
       String::FormatIntWidth2(time_struct.tm_hour) + ":" +
       String::FormatIntWidth2(time_struct.tm_min) + ":" +
-      String::FormatIntWidth2(time_struct.tm_sec);
+      String::FormatIntWidth2(time_struct.tm_sec) + "." +
+      String::FormatIntWidthN(static_cast<int>(ms % 1000), 3);
 }
 
 // Streams an XML CDATA section, escaping invalid CDATA sequences as needed.
